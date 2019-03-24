@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sdst.mwrdph.front.mapper.FrontStatisticsMapper">
+
+    <select id="queryTopNDetectorByVolume" resultType="cn.edu.sdst.mwrdph.front.vo.RankItemOfVolumeAndSpeedVO">
+        SELECT st.detector_id      AS detectorId,
+               SUM(st.volume)      as volume,
+               CEIL(AVG(st.speed)) as speed,
+               dt.`name`           as name,
+               dt.lng              as lng,
+               dt.lat              as lat
+        FROM mwr_statistics AS st
+                 LEFT JOIN mwr_detector AS dt ON st.detector_id = dt.id
+        WHERE st.`timestamp` between #{start} and #{end}
+        GROUP BY st.detector_id
+        ORDER BY ${by} DESC
+        LIMIT #{limit}
+    </select>
+
+    <select id="queryStatisticVolumeAndSpeed" resultType="cn.edu.sdst.mwrdph.front.vo.VolumeAndSpeedVO">
+        SELECT count(*)         AS `count`,
+               SUM(volume)      AS `volume`,
+               CEIL(AVG(speed)) AS `speed`
+        FROM `mwr_statistics`
+        WHERE detector_id = #{detectorId}
+          AND (`timestamp` BETWEEN DATE_SUB(#{date}, INTERVAL #{n} MINUTE) AND #{date})
+    </select>
+
+    <select id="queryVolumeAndSpeedList" resultType="cn.edu.sdst.mwrdph.front.vo.VolumeAndSpeedVO">
+        SELECT FLOOR(UNIX_TIMESTAMP(`timestamp`) / (#{period} * 60)) AS 'index',
+               COUNT(*)                                              AS count,
+               SUM(volume)                                           AS volume,
+               CEIL(AVG(speed))                                      AS speed
+        FROM `mwr_statistics`
+        WHERE detector_id = #{detectorId}
+          AND (`timestamp` BETWEEN #{start} AND #{end})
+        GROUP BY FLOOR(UNIX_TIMESTAMP(`timestamp`) / (#{period} * 60))
+    </select>
+
+    <select id="queryRealTimeVolume" resultType="cn.edu.sdst.mwrdph.front.vo.VolumeAndSpeedVO">
+        SELECT FLOOR(UNIX_TIMESTAMP(`timestamp`) / #{period}) AS `index`,
+               count(*)                                       AS count,
+               SUM(volume)                                    AS volume
+        FROM mwr_statistics
+        WHERE detector_id = #{detectorId}
+          AND (`timestamp` BETWEEN #{start} AND #{end})
+        GROUP BY FLOOR(UNIX_TIMESTAMP(`timestamp`) / #{period})
+    </select>
+
+    <select id="queryRealTimeSpeed" resultType="cn.edu.sdst.mwrdph.front.vo.VolumeAndSpeedVO">
+        SELECT FLOOR(UNIX_TIMESTAMP(`timestamp`) / #{period}) AS `index`,
+               COUNT(*)                                       AS count,
+               CEIL(AVG(speed))                               AS speed
+        FROM mwr_statistics
+        WHERE detector_id = #{detectorId}
+          AND (`timestamp` BETWEEN #{start} AND #{end})
+        GROUP BY FLOOR(UNIX_TIMESTAMP(`timestamp`) / #{period})
+    </select>
+    <select id="getTotalVolume" resultType="java.lang.Long">
+        SELECT SUM(volume) FROM mwr_statistics
+        <where>
+            <if test="start!=null">
+                AND (timestamp BETWEEN #{start} AND #{end})
+            </if>
+            <if test="detectorId !=null">
+                AND detector_id=#{detectorId}
+            </if>
+        </where>
+    </select>
+</mapper>

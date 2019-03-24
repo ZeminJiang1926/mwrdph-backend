@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sdst.mwrdph.ipc.mapper.IpcIncidentMapper">
+    <insert id="insertByList" keyProperty="id" useGeneratedKeys="true">
+        INSERT INTO mwr_incident (section_id, detector_id, type,distance, speed, info, timestamp )
+        VALUES
+        <foreach collection="list" item="item" separator=",">
+            (#{item.sectionId}, #{item.detectorId}, #{item.type}, #{item.distance},
+            #{item.speed},#{item.info},#{item.timestamp})
+        </foreach>
+    </insert>
+</mapper>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sdst.mwrdph.front.mapper.FrontIncidentMapper">
+    <select id="getLatest" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
+        SELECT
+        id, section_id, detector_id, type, speed, distance, info, is_checked, created_time, update_time, timestamp
+        FROM
+        mwr_incident
+        <where>
+            <if test="detectorId != null">
+                detector_id = #{detectorId}
+            </if>
+        </where>
+        ORDER BY
+        `timestamp` DESC
+        LIMIT #{limit}
+    </select>
+    <select id="getIncidents" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
+        SELECT id,
+        section_id,
+        detector_id,
+        type,
+        speed,
+        distance,
+        info,
+        is_checked,
+        created_time,
+        update_time,
+        timestamp
+        FROM mwr_incident
+        <where>
+            <if test="detectorId != null">
+                detector_id = #{detectorId}
+            </if>
+            <if test="start != null">
+                AND (timestamp BETWEEN #{start} AND #{end})
+            </if>
+        </where>
+        ORDER BY
+        timestamp ASC
+    </select>
+    <select id="getTopNDetectorByIncidents" resultType="cn.edu.sdst.mwrdph.front.vo.RankItemOfIncidentsVO">
+        SELECT detector_id             AS detectorId,
+               dt.name                 AS name,
+               dt.lat                  AS lat,
+               dt.lng                  AS lng,
+               SUM(IF(type = 0, 1, 0)) AS 'lowSpeed',
+               SUM(IF(type = 1, 1, 0)) AS 'speeding',
+               SUM(IF(type = 2, 1, 0)) AS 'occupyEmergencyLane',
+               SUM(IF(type = 3, 1, 0)) AS 'retrograde',
+               count(*)                AS count
+        FROM `mwr_incident`
+                 LEFT JOIN mwr_detector AS dt ON mwr_incident.detector_id = dt.id
+        WHERE `timestamp` BETWEEN #{start} AND #{end}
+        GROUP BY detector_id
+        ORDER BY count DESC
+        LIMIT #{limit}
+    </select>
+    <select id="getTotalIncident" resultType="java.lang.Long">
+        SELECT COUNT(*) FROM mwr_incident
+        <where>
+            <if test="start!=null">
+                AND (timestamp BETWEEN #{start} AND #{end})
+            </if>
+            <if test="detectorId !=null">
+                AND detector_id=#{detectorId}
+            </if>
+        </where>
+    </select>
+</mapper>
