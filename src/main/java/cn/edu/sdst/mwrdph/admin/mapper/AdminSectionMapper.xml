@@ -6,7 +6,6 @@
     <select id="queryTopSections" resultType="cn.edu.sdst.mwrdph.entity.SectionPO">
         SELECT *
         FROM mwr_section
-        limit 50
     </select>
     <select id="querySectionByItems" resultType="cn.edu.sdst.mwrdph.entity.SectionPO">
         SELECT * FROM

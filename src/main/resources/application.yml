@@ -21,7 +21,11 @@ logging:
         cn.edu.sdst.mwrdph.front.mapper: debug
 server:
     port: 9090
-
 video:
     server:
-        path: http://localhost:8080
+        path: http://132.232.23.142
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql

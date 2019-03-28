@@ -16,8 +16,11 @@ public class AdminSectionController {
     private AdminSectionService sectionService;
 
     @GetMapping
-    public ResponseEntity<List<SectionPO>> queryTopSections() {
-        return ResponseEntity.ok(sectionService.queryTopSections());
+    public ResponseEntity<List<SectionPO>> queryTopSections(
+            @RequestParam(name = "pageIndex", required = false) int pageIndex,
+            @RequestParam(name = "pageSize", required = false) int pageSize
+    ) {
+        return ResponseEntity.ok(sectionService.queryTopSections(pageIndex,pageSize));
     }
 
     @GetMapping("/query")

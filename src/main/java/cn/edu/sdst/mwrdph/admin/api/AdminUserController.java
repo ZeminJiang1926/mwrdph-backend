@@ -16,8 +16,10 @@ public class AdminUserController {
     private AdminUserService userService;
 
     @GetMapping
-    public ResponseEntity<List<UserPO>> queryTopUser() {
-        return ResponseEntity.ok(userService.queryTopUser());
+    public ResponseEntity<List<UserPO>> queryTopUser(
+            @RequestParam(name = "pageIndex", required = false) int pageIndex,
+            @RequestParam(name = "pageSize", required = false) int pageSize) {
+        return ResponseEntity.ok(userService.queryTopUser(pageIndex,pageSize));
     }
 
     @GetMapping("/query")

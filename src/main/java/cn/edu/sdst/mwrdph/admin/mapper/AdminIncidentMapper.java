@@ -12,11 +12,10 @@ public interface AdminIncidentMapper extends Mapper<IncidentPO> {
     /**
      * 查询n条数据
      *
-     * @param detectorId detectorId(optional)
-     * @param limit      最近n条数据
+     *
      * @return List<IncidentPO>
      */
-    List<IncidentPO> getLatest(@Param("detectorId") Long detectorId, @Param("limit") Integer limit);
+    List<IncidentPO> getLatest();
 
 
     /**
