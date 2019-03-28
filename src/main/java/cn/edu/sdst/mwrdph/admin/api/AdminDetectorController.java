@@ -16,8 +16,11 @@ public class AdminDetectorController {
     private AdminDetectorService detectorService;
 
     @GetMapping
-    public ResponseEntity<List<DetectorPO>> queryTopDetector() {
-        return ResponseEntity.ok(detectorService.queryTopDetector());
+    public ResponseEntity<List<DetectorPO>> queryTopDetector(
+            @RequestParam(name = "pageIndex", required = false) int pageIndex,
+            @RequestParam(name = "pageSize", required = false) int pageSize
+    ) {
+        return ResponseEntity.ok(detectorService.queryTopDetector(pageIndex,pageSize));
     }
 
     @GetMapping("/query")

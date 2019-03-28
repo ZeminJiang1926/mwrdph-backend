@@ -28,14 +28,18 @@ public class AdminIncidentController {
      */
     @GetMapping
     public ResponseEntity<List<IncidentPO>> getLatestIncident(
+            @RequestParam(name = "pageIndex", required = false) int pageIndex,
+            @RequestParam(name = "pageSize", required = false) int pageSize
     ) {
-        return ResponseEntity.ok(incidentService.getLatestIncidents(50));
+        return ResponseEntity.ok(incidentService.getLatestIncidents(pageIndex,pageSize));
     }
 
     @GetMapping("unChecked")
     public ResponseEntity<List<IncidentPO>> getIncidentsUnChecked(
+            @RequestParam(name = "pageIndex", required = false) int pageIndex,
+            @RequestParam(name = "pageSize", required = false) int pageSize
     ) {
-        return ResponseEntity.ok(incidentService.getIncidentsUnChecked());
+        return ResponseEntity.ok(incidentService.getIncidentsUnChecked(pageIndex,pageSize));
     }
 
     /**
@@ -53,11 +57,13 @@ public class AdminIncidentController {
      */
     @GetMapping({"/range"})
     public ResponseEntity<List<IncidentPO>> getIncidents(
+            @RequestParam(name = "pageIndex", required = false) int pageIndex,
+            @RequestParam(name = "pageSize", required = false) int pageSize,
             @RequestParam(name = "section_id", required = false) Long sectionId,
             @RequestParam(name = "start", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date start,
             @RequestParam(name = "end", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss") Date end,
             @RequestParam(name = "checkList[]", required = false) List<Integer> checkList) {
-        return ResponseEntity.ok(incidentService.getIncidents(sectionId, start, end, checkList));
+        return ResponseEntity.ok(incidentService.getIncidents(sectionId, start, end, checkList,pageIndex,pageSize));
     }
 
 

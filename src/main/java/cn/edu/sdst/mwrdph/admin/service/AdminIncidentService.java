@@ -2,6 +2,7 @@ package cn.edu.sdst.mwrdph.admin.service;
 
 import cn.edu.sdst.mwrdph.admin.mapper.AdminIncidentMapper;
 import cn.edu.sdst.mwrdph.entity.IncidentPO;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -22,11 +23,13 @@ public class AdminIncidentService {
     /**
      * 获得最新事件
      *
-     * @param limit 个数
+     *
      * @return List<TrafficIncidentVO>
      */
-    public List<IncidentPO> getLatestIncidents(Integer limit) {
-        List<IncidentPO> latest = incidentMapper.getLatest(null, limit);
+    public List<IncidentPO> getLatestIncidents(int current,int size) {
+
+        PageHelper.startPage(current,size);
+        List<IncidentPO> latest = incidentMapper.getLatest();
         return latest;
     }
 
@@ -38,7 +41,7 @@ public class AdminIncidentService {
      * @return List<TrafficIncidentVO>
      */
     public List<IncidentPO> getLatestIncidents(Long detectorId, Integer limit) {
-        List<IncidentPO> latest = incidentMapper.getLatest(detectorId, limit);
+        List<IncidentPO> latest = incidentMapper.getLatest();
         return latest;
     }
 
@@ -50,7 +53,8 @@ public class AdminIncidentService {
      * @param end       结束时间
      * @return List<IncidentPO>
      */
-    public List<IncidentPO> getIncidents(Long sectionId, Date start, Date end, List<Integer> checkList) {
+    public List<IncidentPO> getIncidents(Long sectionId, Date start, Date end, List<Integer> checkList,int pageIndex,int pageSize) {
+        PageHelper.startPage(pageIndex,pageSize);
         List<IncidentPO> incidents = incidentMapper.getIncidents(sectionId, start, end, checkList);
         return incidents;
     }
@@ -59,7 +63,8 @@ public class AdminIncidentService {
      * @param
      * @return
      */
-    public List<IncidentPO> getIncidentsUnChecked() {
+    public List<IncidentPO> getIncidentsUnChecked(int current,int size) {
+        PageHelper.startPage(current,size);
         List<IncidentPO> incidents = incidentMapper.getIncidentsUnChecked();
         return incidents;
     }

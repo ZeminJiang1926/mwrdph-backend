@@ -8,14 +8,8 @@
         id, section_id, detector_id, type, speed, distance, info, is_checked, created_time, update_time,timestamp
         FROM
         mwr_incident
-        <where>
-            <if test="detectorId != null">
-                detector_id = #{detectorId}
-            </if>
-        </where>
         ORDER BY
         timestamp DESC
-        LIMIT #{limit}
     </select>
     <select id="getIncidents" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
         SELECT id,
@@ -44,7 +38,7 @@
             </if>
         </where>
         ORDER BY
-        created_time ASC limit 50
+        created_time ASC
     </select>
     <select id="getIncidentsUnChecked" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
         SELECT id,

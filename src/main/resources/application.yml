@@ -21,3 +21,8 @@ logging:
         cn.edu.sdst.mwrdph.front.mapper: debug
 server:
     port: 9090
+pagehelper:
+    helperDialect: mysql
+    reasonable: true
+    supportMethodsArguments: true
+    params: count=countSql

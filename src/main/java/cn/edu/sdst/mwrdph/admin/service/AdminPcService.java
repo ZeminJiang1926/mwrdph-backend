@@ -2,6 +2,7 @@ package cn.edu.sdst.mwrdph.admin.service;
 
 import cn.edu.sdst.mwrdph.admin.mapper.AdminPcMapper;
 import cn.edu.sdst.mwrdph.entity.PcPO;
+import com.github.pagehelper.PageHelper;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,14 @@ public class AdminPcService {
     /**
      * @return
      */
-    public List<PcPO> queryTopPc() {
+    public List<PcPO> queryTopPc(int pageIndex,int pageSize) {
+        PageHelper.startPage(pageIndex,pageSize);
         return pcMapper.queryTopPc();
 
     }
 
     /**
-     * @param id
+     * @param
      * @param userName
      * @return
      */

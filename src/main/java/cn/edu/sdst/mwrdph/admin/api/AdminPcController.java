@@ -16,8 +16,11 @@ public class AdminPcController {
     private AdminPcService adminPcService;
 
     @GetMapping
-    public ResponseEntity<List<PcPO>> queryTopPc() {
-        return ResponseEntity.ok(adminPcService.queryTopPc());
+    public ResponseEntity<List<PcPO>> queryTopPc(
+            @RequestParam(name = "pageIndex", required = false) int pageIndex,
+            @RequestParam(name = "pageSize", required = false) int pageSize
+    ) {
+        return ResponseEntity.ok(adminPcService.queryTopPc(pageIndex,pageSize));
     }
 
     @GetMapping("/query")

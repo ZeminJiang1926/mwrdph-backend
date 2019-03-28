@@ -2,6 +2,7 @@ package cn.edu.sdst.mwrdph.admin.service;
 
 import cn.edu.sdst.mwrdph.admin.mapper.AdminUserMapper;
 import cn.edu.sdst.mwrdph.entity.UserPO;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ public class AdminUserService {
     /**
      * @return
      */
-    public List<UserPO> queryTopUser() {
+    public List<UserPO> queryTopUser(int pageIndex,int pageSize) {
+        PageHelper.startPage(pageIndex,pageSize);
         return adminUserMapper.queryTopUser();
     }
 

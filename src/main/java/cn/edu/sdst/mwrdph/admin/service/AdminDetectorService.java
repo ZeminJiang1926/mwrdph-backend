@@ -2,6 +2,7 @@ package cn.edu.sdst.mwrdph.admin.service;
 
 import cn.edu.sdst.mwrdph.admin.mapper.AdminDetectorMapper;
 import cn.edu.sdst.mwrdph.entity.DetectorPO;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,8 @@ public class AdminDetectorService {
     @Autowired
     private AdminDetectorMapper adminDetectorMapper;
 
-    public List<DetectorPO> queryTopDetector() {
+    public List<DetectorPO> queryTopDetector(int pageIndex,int pageSize) {
+        PageHelper.startPage(pageIndex,pageSize);
         return adminDetectorMapper.queryTopDetector();
     }
 

@@ -2,6 +2,7 @@ package cn.edu.sdst.mwrdph.admin.service;
 
 import cn.edu.sdst.mwrdph.admin.mapper.AdminSectionMapper;
 import cn.edu.sdst.mwrdph.entity.SectionPO;
+import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,8 @@ public class AdminSectionService {
     /**
      * @return List<SectionPO>
      */
-    public List<SectionPO> queryTopSections() {
+    public List<SectionPO> queryTopSections(int pageIndex,int pageSize) {
+        PageHelper.startPage(pageIndex,pageSize);
         return sectionMapper.queryTopSections();
     }
 
