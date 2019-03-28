@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.sdst.mwrdph.ipc.mapper.IpcStatisticsMapper">
-    <insert id="insertByList">
+    <insert id="insertByList" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO mwr_statistics (detector_id, section_id, direction, volume, speed, timestamp)
         VALUES
         <foreach collection="list" item="item" separator=",">

@@ -21,3 +21,7 @@ logging:
         cn.edu.sdst.mwrdph.front.mapper: debug
 server:
     port: 9090
+
+video:
+    server:
+        path: http://localhost:8080

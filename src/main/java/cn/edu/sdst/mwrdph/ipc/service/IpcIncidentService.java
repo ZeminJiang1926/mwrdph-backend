@@ -27,18 +27,30 @@ public class IpcIncidentService {
     private IpcIncidentMapper incidentMapper;
     @Autowired
     private IpcDetectorMapper detectorMapper;
+    @Autowired
+    RemoteIncidentVideoService remoteIncidentVideoService;
 
     public int insertByList(ReportVO<TrafficIncidentVO> incidentsReportVO) {
         List<String> infoList = new ArrayList<>(incidentsReportVO.getItems().size());
+
         for (TrafficIncidentVO item : incidentsReportVO.getItems()) {
             DetectorPO detectorPO = detectorMapper.selectByPrimaryKey(item.getDetectorId());
             infoList.add(IncidentInfoUtils.generateInfo(detectorPO.getName(), item.getDistance(), item.getType()));
         }
+
         List<IncidentPO> incidents = incidentsReportVO.toDOList(IncidentPO.class);
-        for (int i = 0; i < incidents.size(); i++) {
-            incidents.get(i).setInfo(infoList.get(i));
-            System.out.println(incidents.get(i));
+
+        int index = 0;
+        for (IncidentPO incident : incidents) {
+            incident.setInfo(infoList.get(index));
+            index++;
         }
-        return incidentMapper.insertByList(incidents);
+
+        int status = incidentMapper.insertByList(incidents);
+
+        // for (IncidentPO incident : incidents) {
+        //     remoteIncidentVideoService.record(incident.getDetectorId(), incident.getId(), incident.getTimestamp());
+        // }
+        return status;
     }
 }
