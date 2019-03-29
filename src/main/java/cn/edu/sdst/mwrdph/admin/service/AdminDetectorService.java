@@ -13,8 +13,8 @@ public class AdminDetectorService {
     @Autowired
     private AdminDetectorMapper adminDetectorMapper;
 
-    public List<DetectorPO> queryTopDetector(int pageIndex,int pageSize) {
-        PageHelper.startPage(pageIndex,pageSize);
+    public List<DetectorPO> queryTopDetector(int pageIndex, int pageSize) {
+        PageHelper.startPage(pageIndex, pageSize);
         return adminDetectorMapper.queryTopDetector();
     }
 

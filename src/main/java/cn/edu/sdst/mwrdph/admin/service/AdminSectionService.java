@@ -16,8 +16,8 @@ public class AdminSectionService {
     /**
      * @return List<SectionPO>
      */
-    public List<SectionPO> queryTopSections(int pageIndex,int pageSize) {
-        PageHelper.startPage(pageIndex,pageSize);
+    public List<SectionPO> queryTopSections(int pageIndex, int pageSize) {
+        PageHelper.startPage(pageIndex, pageSize);
         return sectionMapper.queryTopSections();
     }
 

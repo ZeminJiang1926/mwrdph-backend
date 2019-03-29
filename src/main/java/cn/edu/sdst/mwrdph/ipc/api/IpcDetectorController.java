@@ -1,12 +1,12 @@
-package cn.edu.sdst.mwrdph.ipc.web;
+package cn.edu.sdst.mwrdph.ipc.api;
 
 import cn.edu.sdst.mwrdph.common.CrudSuccessResultVO;
 import cn.edu.sdst.mwrdph.common.ResponseCreater;
 import cn.edu.sdst.mwrdph.common.SuccessResultVO;
 import cn.edu.sdst.mwrdph.enums.SuccessEnum;
-import cn.edu.sdst.mwrdph.ipc.service.IpcIncidentService;
+import cn.edu.sdst.mwrdph.ipc.service.IpcDetectorService;
+import cn.edu.sdst.mwrdph.ipc.vo.DetectorStatusVO;
 import cn.edu.sdst.mwrdph.ipc.vo.ReportVO;
-import cn.edu.sdst.mwrdph.ipc.vo.TrafficIncidentVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -16,30 +16,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- * 交通事件相关接口
+ * 雷达状态相关接口
  *
  * @author ZhangYu
- * @date 2019/2/12
+ * @date 2019/2/13
  */
 @RestController
-@RequestMapping("/v1/ipc_api/traffic_incidents")
-public class IpcIncidentController {
+@RequestMapping("/v1/ipc_api/detectors")
+public class IpcDetectorController {
     @Autowired
-    IpcIncidentService ipcIncidentService;
+    IpcDetectorService ipcDetectorService;
 
     /**
-     * 保存交通事件
+     * 批量更新检测器状态
      *
      * @return CrudSuccessResultVO json string
      */
-    @PostMapping
-    public ResponseEntity<SuccessResultVO> insertByList(@RequestBody ReportVO<TrafficIncidentVO> reportVO) {
+    @PostMapping("/status")
+    public ResponseEntity<SuccessResultVO> updateStatusByList(@RequestBody ReportVO<DetectorStatusVO> reportVO) {
         int count = 0;
         if (!ObjectUtils.isEmpty(reportVO.getItems())) {
-            count = ipcIncidentService.insertByList(reportVO);
+            count = ipcDetectorService.updateStatusByList(reportVO);
         }
-        return ResponseCreater.create(new CrudSuccessResultVO(SuccessEnum.INSERT_SUCCESS, count));
+        return ResponseCreater.create(new CrudSuccessResultVO(SuccessEnum.UPDATE_SUCCESS, count));
     }
-
 
 }

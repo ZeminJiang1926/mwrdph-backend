@@ -30,8 +30,8 @@
             direction=#{detector.direction},
             lng=#{detector.lng},
             lat=#{detector.lat},
-            update_time=now(),d
-            lan_ip=#{detector.laneIp}
+            update_time=now(),
+            lane_ip=#{detector.laneIp}
         WHERE id = #{detector.id}
     </update>
     <insert id="addDetector">
@@ -39,10 +39,10 @@
         (section_id, name, direction,
          lng, lat, radar_alive,
          has_camera, video_url, camera_alive,
-         is_deleted, created_time, update_time, lan_ip, pc_id)
+         deleted, create_time, update_time, lane_ip, pc_id)
         values (#{item.sectionId}, #{item.name}, #{item.direction},
                 #{item.lng}, #{item.lat}, #{item.radarAlive}, #{item.hasCamera},
-                #{item.videoUrl}, #{item.cameraAlive}, #{item.eleted}, now(), now(),
+                #{item.videoUrl}, #{item.cameraAlive}, #{item.deleted}, now(), now(),
                 #{item.laneIp}, #{item.pcId})
     </insert>
 </mapper>

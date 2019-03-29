@@ -4,12 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.sdst.mwrdph.admin.mapper.AdminIncidentMapper">
     <select id="getLatest" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
-        SELECT
-        id, section_id, detector_id, type, speed, distance, info, is_checked, created_time, update_time,timestamp
-        FROM
-        mwr_incident
-        ORDER BY
-        timestamp DESC
+        SELECT id,
+               section_id,
+               detector_id,
+               type,
+               speed,
+               distance,
+               info,
+               checked,
+               create_time,
+               update_time,
+               timestamp
+        FROM mwr_incident
+        ORDER BY timestamp DESC
     </select>
     <select id="getIncidents" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
         SELECT id,
@@ -19,8 +26,8 @@
         speed,
         distance,
         info,
-        is_checked,
-        created_time,
+        checked,
+        create_time,
         update_time,timestamp
         FROM mwr_incident
         <where>
@@ -28,7 +35,7 @@
                 section_id = #{sectionId}
             </if>
             <if test="start != null">
-                AND (created_time BETWEEN #{start} AND #{end})
+                AND (create_time BETWEEN #{start} AND #{end})
             </if>
             <if test="checkList!= null">
                 AND type in
@@ -38,7 +45,7 @@
             </if>
         </where>
         ORDER BY
-        created_time ASC
+        create_time ASC
     </select>
     <select id="getIncidentsUnChecked" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
         SELECT id,
@@ -48,12 +55,12 @@
                speed,
                distance,
                info,
-               is_checked,
-               created_time,
+               checked,
+               create_time,
                update_time,
                timestamp
         FROM mwr_incident
-        where is_checked = 0
+        where checked = 0
         ORDER BY timestamp ASC
     </select>
 </mapper>

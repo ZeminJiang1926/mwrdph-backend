@@ -3,6 +3,7 @@ package cn.edu.sdst.mwrdph.front.vo;
 import cn.edu.sdst.mwrdph.entity.DetectorPO;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.BeanUtils;
 
 /**
  * 单个监测点分布信息
@@ -42,11 +43,12 @@ public class MpDistributeItemVO {
     private Boolean normal;
 
     public MpDistributeItemVO(DetectorPO detectorPO) {
-        this.id = detectorPO.getId();
-        this.name = detectorPO.getName();
-        this.videoUrl = detectorPO.getVideoUrl();
-        this.lng = detectorPO.getLng();
-        this.lat = detectorPO.getLat();
+        BeanUtils.copyProperties(detectorPO, this);
+        // this.id = detectorPO.getId();
+        // this.name = detectorPO.getName();
+        // this.videoUrl = detectorPO.getVideoUrl();
+        // this.lng = detectorPO.getLng();
+        // this.lat = detectorPO.getLat();
         this.normal = judeStatus(detectorPO);
     }
 

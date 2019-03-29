@@ -1,6 +1,9 @@
 package cn.edu.sdst.mwrdph.enums;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 交通事件枚举
@@ -9,40 +12,47 @@ import lombok.Getter;
  * @date 2019/2/12
  */
 @Getter
+@ToString(callSuper = true)
 public enum TrafficIncidentEnum {
+
     /**
-     * 低速行驶
+     * 交通事件类型
      */
-    LOW_SPEED(0, "低速行驶", "低速"),
-    /**
-     * 超速行驶
-     */
-    SPEEDING(1, "超速行驶", "超速"),
-    /**
-     * 占用应急车道
-     */
-    OCCUPY_EMERGENCY_LANE(2, "占用应急车道", "占道"),
-    /**
-     * 车辆匝道逆行
-     */
-    RETROGRADE(3, "车辆匝道逆行", "逆行");
+    LOW_SPEED(0, "低速"),
+    SPEEDING(1, "超速"),
+    OCCUPY_EMERGENCY_LANE(2, "占用应急车道"),
+    RETROGRADE(3, "逆行"),
+    LANE_CHANGE(4, "变道"),
+    PARKING(5, "违停");
+
+
     private int code;
-    private String message;
-    private String shortName;
+    private String alias;
 
-    TrafficIncidentEnum() {
+    @JsonValue
+    public int getCode() {
+        return code;
     }
 
-    TrafficIncidentEnum(int code, String message, String shortName) {
+    TrafficIncidentEnum(int code, String alias) {
         this.code = code;
-        this.message = message;
-        this.shortName = shortName;
+        this.alias = alias;
     }
 
-    public static TrafficIncidentEnum getByCode(int code) {
-        for (TrafficIncidentEnum value : TrafficIncidentEnum.values()) {
-            if (value.getCode() == code) {
-                return value;
+    @JsonCreator
+    public static TrafficIncidentEnum ofCode(int code) {
+        for (TrafficIncidentEnum ele : TrafficIncidentEnum.values()) {
+            if (ele.getCode() == code) {
+                return ele;
+            }
+        }
+        return null;
+    }
+
+    public static TrafficIncidentEnum ofAlias(String alias) {
+        for (TrafficIncidentEnum ele : TrafficIncidentEnum.values()) {
+            if (ele.getAlias() == alias) {
+                return ele;
             }
         }
         return null;

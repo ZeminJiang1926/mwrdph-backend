@@ -1,5 +1,6 @@
 package cn.edu.sdst.mwrdph.ipc.vo;
 
+import cn.edu.sdst.mwrdph.enums.TrafficIncidentEnum;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,7 +15,7 @@ import java.util.Date;
 public class TrafficIncidentVO {
     private Long sectionId;
     private Long detectorId;
-    private Integer type;
+    private TrafficIncidentEnum type;
     private Double speed;
     private Double distance;
     private Date timestamp;

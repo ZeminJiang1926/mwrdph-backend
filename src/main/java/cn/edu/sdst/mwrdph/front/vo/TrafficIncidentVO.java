@@ -23,14 +23,14 @@ public class TrafficIncidentVO {
     private Double distance;
     private Double speed;
     private String info;
-    private Boolean check;
-    private Date createdTime;
+    private Boolean checked;
+    private Date createTime;
     private Date updateTime;
     private Date timestamp;
 
     public TrafficIncidentVO(IncidentPO incidentPO) {
         BeanUtils.copyProperties(incidentPO, this);
-        this.typeName = TrafficIncidentEnum.getByCode(incidentPO.getType()).getShortName();
+        this.typeName =  incidentPO.getType().getAlias();
     }
 
 }

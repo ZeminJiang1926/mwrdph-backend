@@ -1,4 +1,4 @@
-package cn.edu.sdst.mwrdph.front.web;
+package cn.edu.sdst.mwrdph.front.api;
 
 import cn.edu.sdst.mwrdph.front.service.FrontMonitoringPointService;
 import cn.edu.sdst.mwrdph.front.vo.MpDetailsVO;

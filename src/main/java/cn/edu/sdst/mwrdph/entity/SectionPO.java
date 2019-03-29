@@ -1,6 +1,9 @@
 package cn.edu.sdst.mwrdph.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Column;
@@ -15,6 +18,9 @@ import java.util.Date;
  * @date 2019/2/16
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "mwr_section")
 public class SectionPO {
     @Id
@@ -25,8 +31,7 @@ public class SectionPO {
     private Double lat;
     private Integer radarCount;
     private Integer cameraCount;
-    @Column(name = "is_deleted")
     private Boolean deleted;
-    private Date createdTime;
+    private Date createTime;
     private Date updateTime;
 }

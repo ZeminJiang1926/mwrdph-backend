@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author wzh
+ */
 @RestController
 @RequestMapping("/admin/user")
 public class AdminUserController {
@@ -19,7 +22,7 @@ public class AdminUserController {
     public ResponseEntity<List<UserPO>> queryTopUser(
             @RequestParam(name = "pageIndex", required = false) int pageIndex,
             @RequestParam(name = "pageSize", required = false) int pageSize) {
-        return ResponseEntity.ok(userService.queryTopUser(pageIndex,pageSize));
+        return ResponseEntity.ok(userService.queryTopUser(pageIndex, pageSize));
     }
 
     @GetMapping("/query")

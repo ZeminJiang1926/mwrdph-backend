@@ -1,4 +1,4 @@
-package cn.edu.sdst.mwrdph.ipc.web;
+package cn.edu.sdst.mwrdph.ipc.api;
 
 import cn.edu.sdst.mwrdph.common.CrudSuccessResultVO;
 import cn.edu.sdst.mwrdph.common.ResponseCreater;

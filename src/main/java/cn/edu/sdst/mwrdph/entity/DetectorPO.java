@@ -1,6 +1,9 @@
 package cn.edu.sdst.mwrdph.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Column;
@@ -15,6 +18,9 @@ import java.util.Date;
  * @date 2019/2/13
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "mwr_detector")
 public class DetectorPO {
     @Id
@@ -29,9 +35,8 @@ public class DetectorPO {
     private Boolean hasCamera;
     private String videoUrl;
     private Boolean cameraAlive;
-    @Column(name = "is_deleted")
     private Boolean deleted;
-    private Date createdTime;
+    private Date createTime;
     private Date updateTime;
     private Long pcId;
     private String laneIp;

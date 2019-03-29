@@ -1,6 +1,9 @@
 package cn.edu.sdst.mwrdph.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
@@ -14,6 +17,9 @@ import java.util.Date;
  * @date 2019/2/16
  */
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Table(name = "mwr_statistics")
 public class StatisticsPO {
     @Id
@@ -24,6 +30,6 @@ public class StatisticsPO {
     private Short direction;
     private Integer volume;
     private Double speed;
-    private Date createdTime;
+    private Date createTime;
     private Date timestamp;
 }

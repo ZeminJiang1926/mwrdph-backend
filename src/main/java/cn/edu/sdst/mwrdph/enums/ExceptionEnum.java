@@ -1,6 +1,7 @@
 package cn.edu.sdst.mwrdph.enums;
 
 import lombok.Getter;
+import lombok.ToString;
 
 /**
  * 异常信息枚举
@@ -9,6 +10,7 @@ import lombok.Getter;
  * @date 2019/2/12
  */
 @Getter
+@ToString(callSuper = true)
 public enum ExceptionEnum {
     // 需要自定义异常信息时在这里定义
     /**

@@ -16,8 +16,8 @@ public class AdminUserService {
     /**
      * @return
      */
-    public List<UserPO> queryTopUser(int pageIndex,int pageSize) {
-        PageHelper.startPage(pageIndex,pageSize);
+    public List<UserPO> queryTopUser(int pageIndex, int pageSize) {
+        PageHelper.startPage(pageIndex, pageSize);
         return adminUserMapper.queryTopUser();
     }
 

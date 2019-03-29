@@ -7,7 +7,7 @@
         INSERT INTO mwr_incident (section_id, detector_id, type,distance, speed, info, timestamp )
         VALUES
         <foreach collection="list" item="item" separator=",">
-            (#{item.sectionId}, #{item.detectorId}, #{item.type}, #{item.distance},
+            (#{item.sectionId}, #{item.detectorId}, #{item.type, typeHandler=cn.edu.sdst.mwrdph.typehandler.TrafficIncidentEnumTypeHandler}, #{item.distance},
             #{item.speed},#{item.info},#{item.timestamp})
         </foreach>
     </insert>

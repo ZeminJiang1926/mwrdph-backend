@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+/**
+ * @author wzh
+ */
 @RestController
 @RequestMapping("/admin/detector")
 public class AdminDetectorController {

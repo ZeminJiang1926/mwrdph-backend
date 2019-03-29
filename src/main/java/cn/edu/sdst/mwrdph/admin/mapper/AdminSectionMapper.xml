@@ -31,7 +31,7 @@
     </update>
     <insert id="addSection">
         INSERT mwr_section
-        (name, lng, lat, radar_count, camera_count, is_deleted, created_time, update_time)
+        (name, lng, lat, radar_count, camera_count, deleted, create_time, update_time)
         VALUES (#{section.name}, #{section.lng}, #{section.lat}, #{section.radarCount},
                 #{section.cameraCount},
                 #{section.deleted}, now(), now())

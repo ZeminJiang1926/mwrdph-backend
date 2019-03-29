@@ -18,8 +18,8 @@ public class AdminPcService {
     /**
      * @return
      */
-    public List<PcPO> queryTopPc(int pageIndex,int pageSize) {
-        PageHelper.startPage(pageIndex,pageSize);
+    public List<PcPO> queryTopPc(int pageIndex, int pageSize) {
+        PageHelper.startPage(pageIndex, pageSize);
         return pcMapper.queryTopPc();
 
     }

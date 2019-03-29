@@ -47,19 +47,16 @@
     </resultMap>
 
     <select id="queryDistributeInfo" resultMap="distributeInfoMap">
-        SELECT
-            dt.id AS id,
-            dt.name AS name,
-            dt.lng AS lng,
-            dt.lat AS lat,
-            st.id AS sectionId,
-            st.name AS sectionName,
-            st.lng AS sectionLng,
-            st.lat AS sectionLat
-        FROM
-            mwr_detector AS dt
-                LEFT JOIN mwr_section AS st ON dt.section_id = st.id
-        WHERE
-            dt.is_deleted =0
+        SELECT dt.id   AS id,
+               dt.name AS name,
+               dt.lng  AS lng,
+               dt.lat  AS lat,
+               st.id   AS sectionId,
+               st.name AS sectionName,
+               st.lng  AS sectionLng,
+               st.lat  AS sectionLat
+        FROM mwr_detector AS dt
+                 LEFT JOIN mwr_section AS st ON dt.section_id = st.id
+        WHERE dt.is_deleted = 0
     </select>
 </mapper>

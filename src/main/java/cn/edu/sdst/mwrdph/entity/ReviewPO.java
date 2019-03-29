@@ -1,6 +1,10 @@
 package cn.edu.sdst.mwrdph.entity;
 
+import cn.edu.sdst.mwrdph.enums.CarTypeEnum;
+import cn.edu.sdst.mwrdph.enums.LaneEnum;
 import cn.edu.sdst.mwrdph.enums.TrafficIncidentEnum;
+import cn.edu.sdst.mwrdph.typehandler.CarTypeEnumTypeHandler;
+import cn.edu.sdst.mwrdph.typehandler.LaneEnumTypeHandler;
 import cn.edu.sdst.mwrdph.typehandler.TrafficIncidentEnumTypeHandler;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,30 +18,26 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.Date;
 
-/**
- * 事件信息表
- *
- * @author ZhangYu
- * @date 2019/2/12
- */
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Table(name = "mwr_incident")
-public class IncidentPO {
+@Table(name = "mwr_review")
+public class ReviewPO {
     @Id
     @KeySql(useGeneratedKeys = true)
     private Long id;
-    private Long sectionId;
-    private Long detectorId;
+    private Long incidentId;
+    private Long userId;
+    @ColumnType(typeHandler = LaneEnumTypeHandler.class)
+    private LaneEnum lane;
+    @ColumnType(typeHandler = CarTypeEnumTypeHandler.class)
+    private CarTypeEnum carType;
+    private String licensePlate;
     @ColumnType(typeHandler = TrafficIncidentEnumTypeHandler.class)
-    private TrafficIncidentEnum type;
-    private Double distance;
-    private Double speed;
-    private String info;
-    private Boolean checked;
+    private TrafficIncidentEnum incidentType;
+    private Long lastId;
+    private Boolean end;
     private Date createTime;
     private Date updateTime;
-    private Date timestamp;
 }

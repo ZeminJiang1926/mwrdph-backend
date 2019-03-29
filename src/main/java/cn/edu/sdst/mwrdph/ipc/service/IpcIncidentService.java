@@ -31,6 +31,7 @@ public class IpcIncidentService {
     RemoteIncidentVideoService remoteIncidentVideoService;
 
     public int insertByList(ReportVO<TrafficIncidentVO> incidentsReportVO) {
+        System.out.println(incidentsReportVO);
         List<String> infoList = new ArrayList<>(incidentsReportVO.getItems().size());
 
         for (TrafficIncidentVO item : incidentsReportVO.getItems()) {
