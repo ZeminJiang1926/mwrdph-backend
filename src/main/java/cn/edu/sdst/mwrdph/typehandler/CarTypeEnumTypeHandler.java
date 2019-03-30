@@ -15,7 +15,7 @@ import java.sql.SQLException;
  * @author ZhangYu
  * @date 2019/3/28
  */
-public  class CarTypeEnumTypeHandler extends BaseTypeHandler<CarTypeEnum> {
+public class CarTypeEnumTypeHandler extends BaseTypeHandler<CarTypeEnum> {
     @Override
     public void setNonNullParameter(PreparedStatement preparedStatement, int i, CarTypeEnum carTypeEnum, JdbcType jdbcType) throws SQLException {
         preparedStatement.setInt(i, carTypeEnum.getCode());
@@ -33,6 +33,6 @@ public  class CarTypeEnumTypeHandler extends BaseTypeHandler<CarTypeEnum> {
 
     @Override
     public CarTypeEnum getNullableResult(CallableStatement callableStatement, int i) throws SQLException {
-        return CarTypeEnum.ofCode(callableStatement.getShort(i)) ;
+        return CarTypeEnum.ofCode(callableStatement.getShort(i));
     }
 }

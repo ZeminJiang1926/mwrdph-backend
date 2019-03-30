@@ -5,7 +5,7 @@
 <mapper namespace="cn.edu.sdst.mwrdph.front.mapper.FrontIncidentMapper">
     <select id="getLatest" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
         SELECT
-        id, section_id, detector_id, type, speed, distance, info, is_checked, create_time, update_time, timestamp
+        id, section_id, detector_id, type, speed, distance, info, end, create_time, update_time, timestamp
         FROM
         mwr_incident
         <where>
@@ -25,7 +25,7 @@
         speed,
         distance,
         info,
-        is_checked,
+        end,
         create_time,
         update_time,
         timestamp

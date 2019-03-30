@@ -9,7 +9,7 @@
                SUM(has_camera)                            AS camera_total,
                SUM(IF(has_camera AND camera_alive, 1, 0)) AS camera_alive_total
         FROM mwr_detector
-        WHERE is_deleted = 0
+        WHERE deleted = 0
     </select>
 
     <select id="queryAvgVolumeAndSpeedBeforeMinute" resultType="cn.edu.sdst.mwrdph.front.vo.VolumeAndSpeedVO">
@@ -57,6 +57,6 @@
                st.lat  AS sectionLat
         FROM mwr_detector AS dt
                  LEFT JOIN mwr_section AS st ON dt.section_id = st.id
-        WHERE dt.is_deleted = 0
+        WHERE dt.deleted = 0
     </select>
 </mapper>

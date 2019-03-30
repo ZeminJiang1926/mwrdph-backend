@@ -14,13 +14,14 @@ spring:
 mybatis:
     configuration:
         map-underscore-to-camel-case: true
+        use-generated-keys: true
     type-handlers-package: cn.edu.sdst.mwrdph.typehandler
-
 logging:
     level:
         cn.edu.sdst.mwrdph.mapper: trace
         cn.edu.sdst.mwrdph.front.mapper: debug
         cn.edu.sdst.mwrdph.admin.mapper: trace
+        cn.edu.sdst.mwrdph.review.mapper: trace
 server:
     port: 9090
 video:

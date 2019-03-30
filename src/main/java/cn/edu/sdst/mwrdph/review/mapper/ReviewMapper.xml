@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sdst.mwrdph.review.mapper.ReviewMapper">
+    <insert id="initLastReview">
+        INSERT INTO mwr_review_last (user_id)
+        VALUES (#{userId});
+    </insert>
+
+    <insert id="insertNewReviewHistory" useGeneratedKeys="true" keyProperty="reviewId">
+        insert into mwr_review (incident_id, user_id, lane, car_type, license_plate, incident_type, last_id)
+        VALUES (#{incidentId}, #{userId},
+                #{lane, typeHandler=cn.edu.sdst.mwrdph.typehandler.LaneEnumTypeHandler},
+                #{carType, typeHandler=cn.edu.sdst.mwrdph.typehandler.CarTypeEnumTypeHandler},
+                #{licensePlate},
+                #{type,typeHandler=cn.edu.sdst.mwrdph.typehandler.TrafficIncidentEnumTypeHandler},
+                #{reviewId})
+    </insert>
+
+    <update id="updateLastReviewId">
+        update mwr_review_last
+        set last_review_id = #{reviewId}
+        where user_id = #{userId};
+
+    </update>
+
+    <update id="updateIncidentStatus">
+        update mwr_incident
+        <set>
+            <if test="end != null">
+                end = #{end},
+            </if>
+            <if test="checking != null">
+                checking = #{checking},
+            </if>
+            <if test="reviewId != null">
+                review_id = #{reviewId},
+            </if>
+        </set>
+        where id = #{incidentId};
+    </update>
+    <update id="updateUserStatusInfo">
+        update mwr_review_last
+        <set>
+            <if test="reviewId != null">
+                last_review_id = #{reviewId},
+            </if>
+            <if test="checking != null">
+                checking = #{checking},
+            </if>
+            <if test="true">
+                incident_id = #{incidentId},
+            </if>
+        </set>
+        where user_id = #{userId}
+    </update>
+
+    <select id="getLastReviewedIncidentId" resultType="java.lang.Long">
+        SELECT rv.incident_id as 'incidentId'
+        FROM mwr_review_last AS lst,
+             mwr_review AS rv
+        WHERE lst.last_review_id = rv.id
+          AND lst.user_id = #{userId};
+    </select>
+
+    <select id="getNewIncidentReviewInfo" resultType="cn.edu.sdst.mwrdph.review.vo.ReviewVO">
+        SELECT mwr_section.`name`     as `sectionName`,
+               mwr_incident.id        as incidentId,
+               mwr_incident.type      as type,
+               mwr_incident.distance  as distance,
+               mwr_incident.speed     as speed,
+               mwr_incident.timestamp as `timestamp`,
+               mwr_incident.review_id as `reviewId`
+        FROM mwr_incident
+                 LEFT JOIN mwr_section ON mwr_section.id = mwr_incident.section_id
+        WHERE mwr_incident.id > #{lastIncidentId}
+          AND mwr_incident.`end` = 0
+          AND mwr_incident.checking = 0
+        LIMIT 1
+    </select>
+
+    <select id="countSameJudeTypeByIncidentId" resultType="java.lang.Integer">
+        select count(*)
+        from mwr_review
+        where incident_id = #{incidentId}
+          AND incident_type = #{type, typeHandler=cn.edu.sdst.mwrdph.typehandler.TrafficIncidentEnumTypeHandler};
+    </select>
+
+    <select id="getReviewingIncidetnId" resultType="java.lang.Long">
+        select incident_id
+        from mwr_review_last
+        where user_id = #{userId};
+    </select>
+    <select id="getIncidentReviewInfoByIncidentId" resultType="cn.edu.sdst.mwrdph.review.vo.ReviewVO">
+        SELECT mwr_incident.id        as incidentId,
+               mwr_section.`name`     as `sectionName`,
+               mwr_incident.type      as type,
+               mwr_incident.distance  as distance,
+               mwr_incident.speed     as speed,
+               mwr_incident.timestamp as `timestamp`,
+               mwr_incident.review_id as `reviewId`
+        FROM mwr_incident
+                 left join mwr_section ON mwr_section.id = mwr_incident.section_id
+        WHERE mwr_incident.id = #{incidentId}
+    </select>
+    <select id="getReviewHistoryInfo" resultType="cn.edu.sdst.mwrdph.review.po.ReviewLastPO">
+        select mwr_review_last.user_id        as 'userId',
+               mwr_review_last.last_review_id as 'lastReviewId',
+               mwr_review_last.checking       as checking,
+               mwr_review_last.incident_id    as incidentId,
+               mwr_review.incident_id         as lastReviewIncidentId
+        from mwr_review_last
+                 left join mwr_review on mwr_review_last.last_review_id = mwr_review.id
+        where mwr_review_last.user_id = #{userId};
+    </select>
+</mapper>

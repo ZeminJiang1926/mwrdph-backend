@@ -18,6 +18,7 @@ public enum TrafficIncidentEnum {
     /**
      * 交通事件类型
      */
+    NOT_ILLEGAL(-1, "未违章"),
     LOW_SPEED(0, "低速"),
     SPEEDING(1, "超速"),
     OCCUPY_EMERGENCY_LANE(2, "占用应急车道"),

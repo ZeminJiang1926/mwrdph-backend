@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.sdst.mwrdph.review.mapper.ReviewUserMapper">
+
+    <select id="getUserInfo" resultType="cn.edu.sdst.mwrdph.review.vo.UserVO">
+        select id, name, role, tel, age, photo_url
+        from mwr_user
+        where id = #{userId};
+    </select>
+</mapper>
