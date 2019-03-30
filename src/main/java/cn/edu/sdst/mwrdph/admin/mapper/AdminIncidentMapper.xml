@@ -3,39 +3,49 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.sdst.mwrdph.admin.mapper.AdminIncidentMapper">
-    <select id="getLatest" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
-        SELECT id,
-               section_id,
-               detector_id,
-               type,
-               speed,
-               distance,
-               info,
-               checked,
-               create_time,
-               update_time,
-               timestamp
-        FROM mwr_incident
-        ORDER BY timestamp DESC
+    <select id="getLatest" resultType="cn.edu.sdst.mwrdph.admin.vo.AdminIncidentVo">
+       SELECT   mwr_section.name as sectionName,
+                mwr_review.id as id,
+              mwr_review.incident_type as incidentType,
+              mwr_review.car_type as carType,
+              mwr_review.license_plate as licensePlate,
+              mwr_review.lane as lane,
+               mwr_incident.speed as speed,
+               mwr_incident.distance as distance,
+               mwr_incident.checking as checking,
+                mwr_incident.end as end,
+               mwr_incident.create_time as createTime ,
+               mwr_review.update_time as updateTime,
+               mwr_incident.timestamp as timestamp,
+               mwr_user.name as userName
+        FROM mwr_incident,mwr_review,mwr_section,mwr_user where mwr_incident.section_id=mwr_section.id
+        and mwr_incident.review_id=mwr_review.id and mwr_review.user_id=mwr_user.id
+        ORDER BY mwr_incident.timestamp DESC
     </select>
-    <select id="getIncidents" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
-        SELECT id,
-        section_id,
-        detector_id,
-        type,
-        speed,
-        distance,
-        info,
-        checked,
-        create_time,
-        update_time,timestamp
-        FROM mwr_incident
+    <select id="getIncidents" resultType="cn.edu.sdst.mwrdph.admin.vo.AdminIncidentVo">
+        SELECT mwr_section.name as sectionName,
+        mwr_review.id as id,
+        mwr_review.incident_type as incidentType,
+        mwr_review.car_type as carType,
+        mwr_review.license_plate as licensePlate,
+        mwr_review.lane as lane,
+        mwr_incident.speed as speed,
+        mwr_incident.distance as distance,
+        mwr_incident.checking as checking,
+        mwr_incident.end as end,
+        mwr_incident.create_time as createTime ,
+        mwr_review.update_time as updateTime,
+        mwr_incident.timestamp as timestamp,
+        mwr_user.name as userName
+        FROM mwr_incident,mwr_review,mwr_section,mwr_user
         <where>
+            mwr_incident.review_id=mwr_review.id and mwr_review.user_id=mwr_user.id
+            and mwr_incident.section_id=mwr_section.id
             <if test="sectionId != null">
-                section_id = #{sectionId}
+                AND mwr_incident.section_id = #{sectionId}
             </if>
             <if test="start != null">
-                AND (create_time BETWEEN #{start} AND #{end})
+                AND (mwr_incident.create_time BETWEEN #{start} AND #{end})
             </if>
             <if test="checkList!= null">
                 AND type in
@@ -44,23 +54,14 @@
                 </foreach>
             </if>
         </where>
-        ORDER BY
-        create_time ASC
     </select>
-    <select id="getIncidentsUnChecked" resultType="cn.edu.sdst.mwrdph.entity.IncidentPO">
-        SELECT id,
-               section_id,
-               detector_id,
-               type,
-               speed,
-               distance,
-               info,
-               checked,
-               create_time,
-               update_time,
-               timestamp
-        FROM mwr_incident
-        where checked = 0
-        ORDER BY timestamp ASC
-    </select>
+    <update id="updateReview">
+        UPDATE mwr_review
+        SET lane=#{item.lane},
+            car_type=#{item.carType},
+            license_plate=#{item.licensePlate},
+            incident_type=#{item.incidentType},
+            update_time=now()
+        WHERE id = #{item.id}
+    </update>
 </mapper>

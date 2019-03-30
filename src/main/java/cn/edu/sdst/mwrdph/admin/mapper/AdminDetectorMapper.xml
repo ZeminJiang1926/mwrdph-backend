@@ -3,11 +3,11 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.sdst.mwrdph.admin.mapper.AdminDetectorMapper">
-    <select id="queryTopDetector" resultType="cn.edu.sdst.mwrdph.entity.DetectorPO">
+    <select id="queryTopDetector" resultType="cn.edu.sdst.mwrdph.admin.vo.AdminDetectorVo">
         SELECT *
         FROM mwr_detector
     </select>
-    <select id="queryDetectorByItems" resultType="cn.edu.sdst.mwrdph.entity.DetectorPO">
+    <select id="queryDetectorByItems" resultType="cn.edu.sdst.mwrdph.admin.vo.AdminDetectorVo">
         SELECT
         *
         FROM

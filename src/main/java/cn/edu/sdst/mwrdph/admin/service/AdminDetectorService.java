@@ -1,7 +1,7 @@
 package cn.edu.sdst.mwrdph.admin.service;
 
 import cn.edu.sdst.mwrdph.admin.mapper.AdminDetectorMapper;
-import cn.edu.sdst.mwrdph.entity.DetectorPO;
+import cn.edu.sdst.mwrdph.admin.vo.AdminDetectorVo;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,12 +13,12 @@ public class AdminDetectorService {
     @Autowired
     private AdminDetectorMapper adminDetectorMapper;
 
-    public List<DetectorPO> queryTopDetector(int pageIndex, int pageSize) {
+    public List<AdminDetectorVo> queryTopDetector(int pageIndex, int pageSize) {
         PageHelper.startPage(pageIndex, pageSize);
         return adminDetectorMapper.queryTopDetector();
     }
 
-    public List<DetectorPO> queryDetectorByItems(String name) {
+    public List<AdminDetectorVo> queryDetectorByItems(String name) {
         return adminDetectorMapper.queryDetectorByItems(name);
     }
 
@@ -26,12 +26,12 @@ public class AdminDetectorService {
         adminDetectorMapper.delDector(id);
     }
 
-    public int updateDetector(DetectorPO detector) {
+    public int updateDetector(AdminDetectorVo detector) {
 
         return adminDetectorMapper.updateDetector(detector);
     }
 
-    public int addDetector(DetectorPO detector) {
+    public int addDetector(AdminDetectorVo detector) {
         return adminDetectorMapper.addDetector(detector);
     }
 

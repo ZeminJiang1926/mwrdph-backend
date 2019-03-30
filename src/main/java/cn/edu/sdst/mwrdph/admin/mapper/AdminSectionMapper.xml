@@ -26,6 +26,8 @@
         SET name=#{section.name},
             lng=#{section.lng},
             lat=#{section.lat},
+            radar_count=#{section.radarCount},
+            camera_count=#{section.cameraCount},
             update_time=now()
         WHERE id = #{section.id}
     </update>

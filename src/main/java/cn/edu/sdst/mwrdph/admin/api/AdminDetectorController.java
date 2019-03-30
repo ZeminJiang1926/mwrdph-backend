@@ -2,7 +2,7 @@ package cn.edu.sdst.mwrdph.admin.api;
 
 import cn.edu.sdst.mwrdph.admin.service.AdminDetectorService;
 import cn.edu.sdst.mwrdph.entity.DetectorPO;
-
+import cn.edu.sdst.mwrdph.admin.vo.AdminDetectorVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +19,7 @@ public class AdminDetectorController {
     private AdminDetectorService detectorService;
 
     @GetMapping
-    public ResponseEntity<List<DetectorPO>> queryTopDetector(
+    public ResponseEntity<List<AdminDetectorVo>> queryTopDetector(
             @RequestParam(name = "pageIndex", required = false) int pageIndex,
             @RequestParam(name = "pageSize", required = false) int pageSize
     ) {
@@ -27,7 +27,7 @@ public class AdminDetectorController {
     }
 
     @GetMapping("/query")
-    public ResponseEntity<List<DetectorPO>> queryDetectorByItems(String name) {
+    public ResponseEntity<List<AdminDetectorVo>> queryDetectorByItems(String name) {
         return ResponseEntity.ok(detectorService.queryDetectorByItems(name));
     }
 
@@ -47,7 +47,7 @@ public class AdminDetectorController {
 
     @RequestMapping(value = "/update", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String updateDetector(@RequestBody DetectorPO detector) {
+    public String updateDetector(@RequestBody AdminDetectorVo detector) {
         detectorService.updateDetector(detector);
         return "更新传感器成功";
 
@@ -55,7 +55,7 @@ public class AdminDetectorController {
 
     @RequestMapping(value = "/add", method = RequestMethod.POST, produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String addDetector(@RequestBody DetectorPO detector) {
+    public String addDetector(@RequestBody AdminDetectorVo detector) {
         detectorService.addDetector(detector);
         return "添加传感器成功";
 

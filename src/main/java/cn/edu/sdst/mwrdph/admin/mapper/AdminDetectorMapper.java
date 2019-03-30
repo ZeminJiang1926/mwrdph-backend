@@ -1,5 +1,6 @@
 package cn.edu.sdst.mwrdph.admin.mapper;
 
+import cn.edu.sdst.mwrdph.admin.vo.AdminDetectorVo;
 import cn.edu.sdst.mwrdph.entity.DetectorPO;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -9,14 +10,14 @@ import java.util.List;
 
 
 @Mapper
-public interface AdminDetectorMapper extends tk.mybatis.mapper.common.Mapper<DetectorPO> {
+public interface AdminDetectorMapper extends tk.mybatis.mapper.common.Mapper<AdminDetectorVo> {
 
     /**
      * 查询前50条传感器数据
      *
      * @return List<DetectorPO>
      */
-    List<DetectorPO> queryTopDetector();
+    List<AdminDetectorVo> queryTopDetector();
 
     /**
      * 根据监测点名称和路段ID查询传感器
@@ -24,7 +25,7 @@ public interface AdminDetectorMapper extends tk.mybatis.mapper.common.Mapper<Det
      * @param name
      * @return List<DetectorPO>
      */
-    List<DetectorPO> queryDetectorByItems(@Param("name") String name);
+    List<AdminDetectorVo> queryDetectorByItems(@Param("name") String name);
 
     /**
      * 根据ID 删除传感器配置
@@ -39,12 +40,12 @@ public interface AdminDetectorMapper extends tk.mybatis.mapper.common.Mapper<Det
      * @param detector
      * @return
      */
-    int updateDetector(@Param("detector") DetectorPO detector);
+    int updateDetector(@Param("detector") AdminDetectorVo detector);
 
     /***
      * 增加传感器
      * @param detector
      * @return
      */
-    int addDetector(@Param("item") DetectorPO detector);
+    int addDetector(@Param("item") AdminDetectorVo detector);
 }

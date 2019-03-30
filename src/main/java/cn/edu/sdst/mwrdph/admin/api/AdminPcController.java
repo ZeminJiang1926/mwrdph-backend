@@ -23,7 +23,7 @@ public class AdminPcController {
             @RequestParam(name = "pageIndex", required = false) int pageIndex,
             @RequestParam(name = "pageSize", required = false) int pageSize
     ) {
-        return ResponseEntity.ok(adminPcService.queryTopPc(pageIndex,pageSize));
+        return ResponseEntity.ok(adminPcService.queryTopPc(pageIndex, pageSize));
     }
 
     @GetMapping("/query")
