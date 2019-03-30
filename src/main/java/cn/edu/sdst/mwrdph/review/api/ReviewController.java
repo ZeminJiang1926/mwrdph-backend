@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
  */
 @RequestMapping("/v1/review")
 @RestController
-@CrossOrigin(origins = "http://localhost:8080")
 public class ReviewController {
     @Autowired
     ReviewService reviewService;
